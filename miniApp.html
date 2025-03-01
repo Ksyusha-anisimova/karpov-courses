@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!--подключаем библиотеки React и ReactDOM-->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<!--подключаем babel standalone. НЕ САМОЕ ЛУЧШЕЕ РЕШЕНИЕ. НЕ СТОИТ ИСПОЛЬЗОВАТЬ -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Document</title>
+    <style>
+        .Counter{
+            display: flex;
+            align-items: center;
+        }
+        .Button{
+            display: inline-flex;
+            align-items: center;
+            border-radius: 3px;
+            background: pink;
+            border: none;
+            padding: 0 10px;
+            height: 32px;
+        }
+        .button__icon:not(:last-child){
+            margin-right: 4px;
+        }
+        .button__icon{
+            width: 30px;
+        }
+    </style>
+</head>
+<body>
+<div id="root"></div>
+<!--<script src="miniApp.js"></script>-->
+<script type="text/babel" data-preset="react">//Нужно обозначить тот скрипт в котором храниться js код, а также сказать
+//что внутри это скрипта используется JSX
+//     const button = <button type="button" disabled tabIndex={0}>Increment</button>
+//     ReactDOM.render(button, document.getElementById('root') );
+
+//сверстаем небольшое приложение
+// let counter = 0;
+
+const Button = ({children, iconSrc, ...restPops}) => {
+    return (
+        // важен именно такой порядок передачи в button( сначало свойство, которое накинул пользователь, а потом наши, которые не должны быть переопределенны
+        <button {...restPops} className="Button">
+            {iconSrc !== undefined && <img className="button__icon" src={iconSrc} alt=""/>}
+            {children !== undefined && <span className="button__text">{children}</span>}
+        </button>
+    ); //в качестве return возвращаем react элемент
+};
+
+//наш hook
+const  useCounterExceeded = (counter, limit, cb) => {
+    React.useEffect(() => {
+        if (counter >= limit) {
+            cb();
+        }
+    },[counter, limit, cb]);
+};
+
+
+//создаем компонент Counter
+const Counter = () => {
+    //создаем стэйт нашего приложения
+    const [counter, setCounter] = React.useState(0);
+    // React.useEffect(() => {
+    //     if(counter >= 10) {
+    //         alert('I am done');
+    //     }
+    // }, []);
+    useCounterExceeded(counter, 10, () => alert("I am done!"));
+    return(
+        <div className="Counter">
+        <Button disabled={counter >= 10} onClick={() => setCounter(counter + 1)} iconSrc="images/plus.png">Increment</Button>
+        &nbsp;
+        <Button disabled={counter === 0} onClick={() => setCounter(0)}>Reset</Button>
+        &nbsp;
+        {counter}
+    </div>
+    );
+};
+ReactDOM.render(<Counter />, document.getElementById('root'));
+// function render() {
+//     ReactDOM.render(
+        // https://static-00.iconduck.com/assets.00/circle-plus-icon-512x512-so2c3hqi.png  - plus
+        //https://cdn-icons-png.flaticon.com/512/5277/5277847.png - reset
+        // &nbsp; - неразрывные пробелы
+
+        //в реакте важно использовать Button а не button. с большой буквы.ВОЗМОЖНО дело не в большой букве а как мы выше назвали переменную
+    // <div className="Counter">
+    //     <Button onClick={() => {
+    //         counter += 1;
+    //         render();
+    //     }
+    //     } iconSrc="images/plus.png">Increment</Button>
+    //     &nbsp;
+    //     <Button >Reset</Button>
+    //     &nbsp;
+    //     {counter}
+    // </div>
+    //, document.getElementById('root'));
+// }
+// render();
+</script>
+</body>
+</html>

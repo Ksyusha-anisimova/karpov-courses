@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<!--<script src="promise.js"></script>-->
+<!--<script src="asyncAwait.js"></script>-->
+<!--<script>
+    //https://loremflickr.com/1280/720
+    const loadImage = (src, callback) => {
+        const image = document.createElement('img');
+        image.src = src;
+        //image.src = 'https://loremflickr.com/1280/720';
+        //image.src = 'https://kbvkdbfvkdfv'; //для ошибки
+        // у тега image есть событие onload, оно срабатывает, когда картинка загрузилась
+        image.onload = () => {
+            callback(null, image);
+           // document.body.appendChild(image);
+        }
+        // document.body.appendChild(image);
+
+        //если случилась какая-то ошибка(картинка не подгрузилась, нет на сервере и тд)
+        image.onerror = (error) => {
+            callback(error);
+            //console.log(error);
+        }
+    };
+
+    loadImage('https://loremflickr.com/1280/720', (error, image) => {
+        if(error){
+            console.log(error);
+        } else {
+            document.body.appendChild(image);
+        }
+    });
+
+
+
+    //Сделаем тоже самое, но только с помощью promise. их удобнее читать и тд
+    const loadImage = (src) => {
+        //resolve - функция выполняется, когда все хорошо, reject - функция выполн., когда все плохо
+        return new Promise((resolve, reject) => {
+
+            const image = document.createElement('img');
+            image.src = src;
+            // у тега image есть событие onload, оно срабатывает, когда картинка загрузилась
+            image.onload = () => {
+                resolve(image);
+
+            }
+            //если случилась какая-то ошибка(картинка не подгрузилась, нет на сервере и тд)
+            image.onerror = (error) => {
+                reject(error);
+            }
+        })
+    };
+
+    loadImage('https://loremflickr.com/1280/720')
+        .then((image) => {
+            document.body.appendChild(image);
+            return loadImage('https://loremflickr.com/300/200')
+        })
+        .then((image) => {
+            document.body.appendChild(image);
+            return loadImage('https://loremflickr.com/100/500')
+        })
+        .then((image) => {
+            document.body.appendChild(image);
+            return loadImage('https://loremflickr.com/500/300')
+        })
+        .then((image) => {
+            document.body.appendChild(image);
+            return loadImage('https://loremflickr.com/640/480')
+        })
+    .catch((error) => console.log(error)); //обработка ошибок
+
+
+</script> -->
+<!--тоже самое но переписанно с await-->
+<script>
+
+    /*Создается новый <img> элемент.
+    image.src = src — браузер начинает загружать картинку.
+    onload — срабатывает, когда картинка загрузилась. Вызывается resolve(image), и промис успешно завершается.
+    onerror — срабатывает, если картинка не загрузилась (например, если URL невалидный).
+     В таком случае вызывается reject(error).*/
+
+    const loadImage = (src) => {
+        //resolve - функция выполняется, когда все хорошо, reject - функция выполн., когда все плохо
+        return new Promise((resolve, reject) => {
+
+            const image = document.createElement('img');// создаем <img>
+            image.src = src;// устанавливаем URL изображения
+            // у тега image есть событие onload, оно срабатывает, когда картинка загрузилась
+            image.onload = () => {
+                resolve(image);
+
+            }
+            //если случилась какая-то ошибка(картинка не подгрузилась, нет на сервере и тд)
+            image.onerror = (error) => {
+                reject(error);
+            }
+        })
+    };
+    /*Это async-функция, которая загружает 4 изображения по очереди.
+Каждое await loadImage(url) ждет, пока картинка загрузится, прежде чем продолжить.
+После загрузки изображения добавляются в document.body.*/
+
+    //Если хоть одно изображение не загрузится, код упадет с ошибкой. Чтобы избежать этого, можно добавить try...catch:
+    const go = async () => {
+        try {
+            const image1 = await loadImage('https://loremflickr.com/300/200');
+            document.body.appendChild(image1);
+
+            const image2 = await loadImage('https://loremflickr.com/100/500');
+            document.body.appendChild(image2);
+
+            const image3 = await loadImage('https://lkshvksshv 00');
+            document.body.appendChild(image3);
+
+            const image4 = await loadImage('https://loremflickr.com/640/480');
+            document.body.appendChild(image4);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    go();
+</script>
+</body>
+</html>
