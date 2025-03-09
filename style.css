@@ -8,7 +8,8 @@
     --color-grey: #868686;
     --color-white: #FFFFFF;
 
-    --grid-column-width: 101px;
+    --container-width:1440px;
+    --grid-column-width: 98px;
     --grid-gap:20px;
 }
 *{
@@ -33,7 +34,7 @@ body{
 }
 /*создаем класс для контента( контейнер, чтобы сделать его по центру всегда)*/
 .container{
-    max-width: 1435px;
+    max-width: var(--container-width);
     margin: 0 auto;
     /*расшифровка margin 0- верхний и нижний отступы равны нулю.
     auto - боковые (левый и правый) отступы автоматически распределяются,
@@ -220,6 +221,7 @@ body{
     padding-top: 22px;
     padding-bottom: 56px;
     background-color: var(--color-primary);
+    min-width: var(--container-width);
 }
 .footer__columne{
     display: flex;

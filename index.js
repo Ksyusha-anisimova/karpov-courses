@@ -207,7 +207,7 @@ const escapeString = (string) => {
     return string.replace(/[&<>]/g, (tag) => {
         return symbols[tag] || tag;
     }); //по всей строке ищем символы '&', '<', '>', если находим, то делаем замену
-}
+};
 
 //нам нужно найти контейнер куда мы будем добавлять наши mainTemplate и smallTemplate переменные
 const mainNewsContainer = document.querySelector('.articles__big-column');
@@ -297,6 +297,84 @@ smallNews.forEach((item) => {
     // mainNewsContainer.appendChild(createMainNewsItem(item));  - для создание элемента через createElement
     smallNewsContainer.appendChild(template.content);
     //мы сделали template, через innerHTML загнали туда данные у нас получился фрагмент и этот фрагмент мы добавили через appendChild
-
-
 })
+
+//любая разметка, которую мы пишем на рекакте должна генерироваться с помощью компонентов
+//общий компонент app который будет описывать наше приложение целиком
+const App = () => {
+// вставляем в него всю нашу разметку ( скопированную из html)
+    return(
+        <React.Fragment>
+
+            <header className="header">
+               {/*делаем навигацию*/}
+                <div className="container">
+                    <nav className="navigation grid header__navigation">
+                        <a href="./project.html" className="navigation__log"><img className="navigation__image"
+                                                                                  src="/images/logo1.png"
+                                                                                  alt="Логотип"/></a>
+                        <ul className="navigation__list">
+                            <li className="navigation__item"><a href="./project.html"
+                                                                className="navigation__link navigation__link--active">Главная</a>
+                            </li>
+                            <li className="navigation__item"><a href="./fashion.html"
+                                                                className="navigation__link">Мода</a></li>
+                            <li className="navigation__item"><a href="./tech.html"
+                                                                className="navigation__link">Технологии</a></li>
+                            <li className="navigation__item"><a href="./politics.html"
+                                                                className="navigation__link">Политика</a></li>
+                            <li className="navigation__item"><a href="./sport.html"
+                                                                className="navigation__link">Спорт</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+            </header>
+            <main className="main">
+                <section className="articles">
+                    <div className="container grid">
+                        {/*в main  у нас две секции */}
+                        <section className="articles__big-column"></section>
+
+                        {/*Вторая секция */}
+                        <section className="articles__small-column"></section>
+                    </div>
+                </section>
+            </main>
+            <footer className="footer">
+
+                {/*делаем навигацию*/}
+                <div className="container">
+                    <nav className="navigation grid footer__navigation">
+                        <a href="./project.html" className="navigation__log"><img className="navigation__image"
+                                                                                  src="/images/logo1.png"
+                                                                                  alt="Логотип"/></a>
+                        <ul className="navigation__list">
+                            <li className="navigation__item"><a href="./project.html"
+                                                                className="navigation__link navigation__link--active">Главная</a>
+                            </li>
+                            <li className="navigation__item"><a href="#"
+                                                                className="navigation__link">Мода</a></li>
+                            <li className="navigation__item"><a href="#"
+                                                                className="navigation__link">Технологии</a></li>
+                            <li className="navigation__item"><a href="#"
+                                                                className="navigation__link">Политика</a></li>
+                            <li className="navigation__item"><a href="#"
+                                                                className="navigation__link">Спорт</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div className="footer__columne">
+                    <p className="footer__text">Сделано на Frontend курсе в <a href="#" className="footer__link"
+                                                                               target="_blank">Karpov.Courses</a></p>
+                    <p className="footer__copyright">© 2021</p>
+                </div>
+
+            </footer>
+        </React.Fragment>
+    )
+};
+
+//отрисуем основной компонент
+ReactDOM.render(<App />, document.getElementById("root"));
