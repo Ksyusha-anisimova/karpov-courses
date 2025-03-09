@@ -209,43 +209,94 @@ const escapeString = (string) => {
     }); //по всей строке ищем символы '&', '<', '>', если находим, то делаем замену
 };
 
-//нам нужно найти контейнер куда мы будем добавлять наши mainTemplate и smallTemplate переменные
-const mainNewsContainer = document.querySelector('.articles__big-column');
+const Header = () => (
+    <header className="header">
+        {/*делаем навигацию*/}
+        <div className="container">
+            <nav className="navigation grid header__navigation">
+                <a href="./project.html" className="navigation__log"><img className="navigation__image"
+                                                                          src="/images/logo1.png"
+                                                                          alt="Логотип"/></a>
+                <ul className="navigation__list">
+                    <li className="navigation__item"><a href="./project.html"
+                                                        className="navigation__link navigation__link--active">Главная</a>
+                    </li>
+                    <li className="navigation__item"><a href="./fashion.html"
+                                                        className="navigation__link">Мода</a></li>
+                    <li className="navigation__item"><a href="./tech.html"
+                                                        className="navigation__link">Технологии</a></li>
+                    <li className="navigation__item"><a href="./politics.html"
+                                                        className="navigation__link">Политика</a></li>
+                    <li className="navigation__item"><a href="./sport.html"
+                                                        className="navigation__link">Спорт</a></li>
+                </ul>
+            </nav>
+        </div>
+
+    </header>
+)
+const Abc = ({value}) => <>{value}</>
+
+const Main = ({onClick, value}) => (
+    <main className="main" onClick={onClick}>
+        <section className="articles">
+            <Abc value={value}/>
+            <div className="container grid">
+                {/*в main  у нас две секции */}
+                <section className="articles__big-column"></section>
+
+                {/*Вторая секция */}
+                <section className="articles__small-column"></section>
+            </div>
+        </section>
+    </main>
+)
+
+//любая разметка, которую мы пишем на рекакте должна генерироваться с помощью компонентов
+//общий компонент app который будет описывать наше приложение целиком
+const App = () => {
+    const [value, setValue] = React.useState(0);
+    const [news, setNews] = React.useState('Empty News');
+    let a = 0;
+
+    React.useEffect(() => {
+        //нам нужно найти контейнер куда мы будем добавлять наши mainTemplate и smallTemplate переменные
+        const mainNewsContainer = document.querySelector('.articles__big-column');
 //метод вернёт ссылку на него
-const smallNewsContainer = document.querySelector('.articles__small-column');
+        const smallNewsContainer = document.querySelector('.articles__small-column');
 
 //с помощью цикла попробуем вывести все новости
-mainNews.forEach((item) => { //то есть берем каждый item и выполняем функцию
-    //создаем элемент и добавляем на страницу
-    // const element = mainNewsTemplate.content.cloneNode(true);
-    // //создадим переменную которая ищит категорию в статье
-    // const category = data.categories.find((categoryItem) => categoryItem.id === item.category_id);
-    // const sources = data.sources.find((sourcesItem) => sourcesItem.id === item.source_id);
-    // // подставляем данные на страницу, например title
-    // // подставил title в каждую новость
-    // element.querySelector('.main-article__title').textContent = item.title;
-    // // вставляем картинку
-    // element.querySelector('.main-article__image').src = item.image;
-    // //вставляем категории
-    // element.querySelector('.main-article__category').textContent = category.name;
-    // //текс
-    // element.querySelector('.main-article__text').textContent = item.description;
-    // //источник
-    // element.querySelector('.main-article__source').textContent = sources.name;
+        mainNews.forEach((item) => { //то есть берем каждый item и выполняем функцию
+            //создаем элемент и добавляем на страницу
+            // const element = mainNewsTemplate.content.cloneNode(true);
+            // //создадим переменную которая ищит категорию в статье
+            // const category = data.categories.find((categoryItem) => categoryItem.id === item.category_id);
+            // const sources = data.sources.find((sourcesItem) => sourcesItem.id === item.source_id);
+            // // подставляем данные на страницу, например title
+            // // подставил title в каждую новость
+            // element.querySelector('.main-article__title').textContent = item.title;
+            // // вставляем картинку
+            // element.querySelector('.main-article__image').src = item.image;
+            // //вставляем категории
+            // element.querySelector('.main-article__category').textContent = category.name;
+            // //текс
+            // element.querySelector('.main-article__text').textContent = item.description;
+            // //источник
+            // element.querySelector('.main-article__source').textContent = sources.name;
 
-    //используем innerHtml
-    // const div = document.createElement('div');
-    //создаем див и в этот див мы можем вставить текст или целую html, но ввиде текста.Нужно использовать шаблонные строки
+            //используем innerHtml
+            // const div = document.createElement('div');
+            //создаем див и в этот див мы можем вставить текст или целую html, но ввиде текста.Нужно использовать шаблонные строки
 
-    //создаем template
-    const template = document.createElement('template');
+            //создаем template
+            const template = document.createElement('template');
 
-    //вывод данных
-    const categoryDate = data.categories.find((categoryItem) => categoryItem.id === item.category_id);
-    const sourcesDate = data.sources.find((sourcesItem) => sourcesItem.id === item.source_id);
+            //вывод данных
+            const categoryDate = data.categories.find((categoryItem) => categoryItem.id === item.category_id);
+            const sourcesDate = data.sources.find((sourcesItem) => sourcesItem.id === item.source_id);
 
 
-    template.innerHTML = ` 
+            template.innerHTML = ` 
      <article class="main-article">
          <div class="main-article__image-container">
                     <!--в шаблонной строке мы можем подставлять js переменные -->
@@ -263,86 +314,64 @@ mainNews.forEach((item) => { //то есть берем каждый item и в�
      </article>
     `;
 
-    // mainNewsContainer.appendChild(createMainNewsItem(item));  - для создание элемента через createElement
-    mainNewsContainer.appendChild(template.content);
-    //мы сделали template, через innerHTML загнали туда данные у нас получился фрагмент и этот фрагмент мы добавили через appendChild
-})
+            // mainNewsContainer.appendChild(createMainNewsItem(item));  - для создание элемента через createElement
+            mainNewsContainer.appendChild(template.content);
+            //мы сделали template, через innerHTML загнали туда данные у нас получился фрагмент и этот фрагмент мы добавили через appendChild
+        })
 
 //тоже самое делаем с smallNews
-smallNews.forEach((item) => {
-    // const element = smallNewsTemplate.content.cloneNode(true);
-    // const sources = data.sources.find((sourcesItem) => sourcesItem.id === item.source_id);
-    //переменная для даты
-    // const date = new Date(item.date).toLocaleDateString('ru-RU', {month: 'long', day: 'numeric'});
-    // у метода Date есть такой метод .toLocaleDateString  в который мы передаем на русском языке
-    //и дальше мы передаем объект с настройками( у нас полный месяц и число цифрами)
+        smallNews.forEach((item) => {
+            // const element = smallNewsTemplate.content.cloneNode(true);
+            // const sources = data.sources.find((sourcesItem) => sourcesItem.id === item.source_id);
+            //переменная для даты
+            // const date = new Date(item.date).toLocaleDateString('ru-RU', {month: 'long', day: 'numeric'});
+            // у метода Date есть такой метод .toLocaleDateString  в который мы передаем на русском языке
+            //и дальше мы передаем объект с настройками( у нас полный месяц и число цифрами)
 
-    //создаем template
-    const template = document.createElement('template');
+            // создаем template
+            const template = document.createElement('template');
 
-    //вывод данных
-    const dateDate = new Date(item.date).toLocaleDateString('ru-RU', {month: 'long', day: 'numeric'});
-    const sourcesDate = data.sources.find((sourcesItem) => sourcesItem.id === item.source_id);
+            //вывод данных
+            const dateDate = new Date(item.date).toLocaleDateString('ru-RU', {month: 'long', day: 'numeric'});
+            const sourcesDate = data.sources.find((sourcesItem) => sourcesItem.id === item.source_id);
 
-    template.innerHTML = ` 
+            template.innerHTML = ` 
      <article class="small-article">
      <h2 class="small-article__title">${escapeString(item.title)}</h2>
      <p class="small-article__caption">
          <span class="article-date small-article__date">${dateDate}</span>
-         <span class="article-source small-article__source">${escapeString(sourcesDate.name) }</span>
+         <span class="article-source small-article__source">${escapeString(sourcesDate.name)}</span>
      </p>
  </article>
     `;
 
-    // mainNewsContainer.appendChild(createMainNewsItem(item));  - для создание элемента через createElement
-    smallNewsContainer.appendChild(template.content);
-    //мы сделали template, через innerHTML загнали туда данные у нас получился фрагмент и этот фрагмент мы добавили через appendChild
-})
+            // mainNewsContainer.appendChild(createMainNewsItem(item));  - для создание элемента через createElement
+            smallNewsContainer.appendChild(template.content);
+            //мы сделали template, через innerHTML загнали туда данные у нас получился фрагмент и этот фрагмент мы добавили через appendChild
+        })
+    }, []);
 
-//любая разметка, которую мы пишем на рекакте должна генерироваться с помощью компонентов
-//общий компонент app который будет описывать наше приложение целиком
-const App = () => {
-// вставляем в него всю нашу разметку ( скопированную из html)
-    return(
-        <React.Fragment>
+    React.useEffect(() => {
+        if (value) {
+            setNews(`News #${value}`);
+        }
+    }, [value]);
 
-            <header className="header">
-               {/*делаем навигацию*/}
-                <div className="container">
-                    <nav className="navigation grid header__navigation">
-                        <a href="./project.html" className="navigation__log"><img className="navigation__image"
-                                                                                  src="/images/logo1.png"
-                                                                                  alt="Логотип"/></a>
-                        <ul className="navigation__list">
-                            <li className="navigation__item"><a href="./project.html"
-                                                                className="navigation__link navigation__link--active">Главная</a>
-                            </li>
-                            <li className="navigation__item"><a href="./fashion.html"
-                                                                className="navigation__link">Мода</a></li>
-                            <li className="navigation__item"><a href="./tech.html"
-                                                                className="navigation__link">Технологии</a></li>
-                            <li className="navigation__item"><a href="./politics.html"
-                                                                className="navigation__link">Политика</a></li>
-                            <li className="navigation__item"><a href="./sport.html"
-                                                                className="navigation__link">Спорт</a></li>
-                        </ul>
-                    </nav>
-                </div>
 
-            </header>
-            <main className="main">
-                <section className="articles">
-                    <div className="container grid">
-                        {/*в main  у нас две секции */}
-                        <section className="articles__big-column"></section>
+    const handleClick = () => {
+        setValue(value + 1);
+        setValue((prevValue) => prevValue + 1);
+        a = a + 1;
+    }
 
-                        {/*Вторая секция */}
-                        <section className="articles__small-column"></section>
-                    </div>
-                </section>
-            </main>
+    return (
+        <>
+            {/*<Header/>*/}
+            {news}
+            {(value > 0) ? <Header/> : <div>123</div>}
+
+            <Main onClick={handleClick} value={value}/>
             <footer className="footer">
-
                 {/*делаем навигацию*/}
                 <div className="container">
                     <nav className="navigation grid footer__navigation">
@@ -372,9 +401,9 @@ const App = () => {
                 </div>
 
             </footer>
-        </React.Fragment>
+        </>
     )
 };
 
 //отрисуем основной компонент
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App/>, document.getElementById("root"));
