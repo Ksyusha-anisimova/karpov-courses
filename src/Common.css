@@ -1,0 +1,78 @@
+
+:root{
+    --color-primary: #262A2F;
+    --color-accent: #FF5533;
+    --color-grey: #868686;
+    --color-white: #FFFFFF;
+
+    --container-width:1440px;
+    --grid-column-width: 98px;
+    --grid-gap:20px;
+}
+*{
+    /*    сбрасываем все браузерные стиле в том числе и дисплей, а его надо вернуть*/
+    all: unset;
+    display: revert; /*возвращаем дисплей*/
+}
+body{
+    /*подключаем ширифт Rubik и если он не загрузится то будет ширифт без засечик*/
+    font-family: 'Rubik', sans-serif;
+    background-color: #EBEBEB;
+    font-size: 22px;
+    font-weight: 400;
+}
+/*пишем класс для гридов*/
+.grid{
+    display: grid;
+    grid-template-columns: repeat(12, var(--grid-column-width));
+    gap: var(--grid-gap);
+    /*gap используется для задания расстояния (промежутков)
+    между строками и колонками в контейнерах сетки (grid) или флекс-контейнерах (flex).*/
+}
+/*создаем класс для контента( контейнер, чтобы сделать его по центру всегда)*/
+.container{
+    max-width: var(--container-width);
+    margin: 0 auto;
+    /*расшифровка margin 0- верхний и нижний отступы равны нулю.
+    auto - боковые (левый и правый) отступы автоматически распределяются,
+    чтобы элемент оказался в центре контейнера по горизонтали.*/
+}
+
+.articles{
+    margin-bottom: 135px;
+}
+.articles__big-column{
+    grid-column: span 9;
+}
+.articles__small-column{
+    grid-column: 10/-1;
+}
+.article-category{
+    font-size: 14px;
+    line-height: 17px;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    font-weight: 700;
+}
+.article-source{
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 20px;
+    color: var(--color-grey);
+    text-transform: uppercase;
+}
+.article-date{
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: var(--color-accent);
+    text-transform: uppercase;
+}
+
+/*если сразу после даты идет источник, то добавляем к источнику точку*/
+.article-date + .article-source:before{
+    content: ' • ';
+    /*Добавляет содержимое перед элементом .article-source с использованием псевдоэлемента :before.
+Содержимое, добавляемое перед .article-source, — это символ "•" (точка).*/
+}
+

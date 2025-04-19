@@ -1,0 +1,25 @@
+
+/*верстаем полоску вертикальную*/
+.small-article{
+    margin-bottom: 35px;
+    border-left: 9px solid var(--color-primary);
+    padding-left: 11px;
+}
+.small-article:last-child{
+    margin-bottom: 0;
+}
+.small-article__title{
+    margin-bottom: 14px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    color: var(--color-primary);
+
+    /* делаем ограниценние по кол-ву строк в заголовке, тк данные могут приходить разные */
+    display: -webkit-box;
+    /*у бразеров есть возможность, без костылей отображать максим. кол-во строк*/
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+

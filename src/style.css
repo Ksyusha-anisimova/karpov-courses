@@ -1,0 +1,7 @@
+/*подключение шрифтов из гугл по ссылке. шрифт Rubik*/
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import "components/App/App.css";
+@import "Common.css";
+@import "components/MainArticle/MainArticle.css";
+@import "components/Navigation/Navigation.css";
+@import "components/SmallArticle/SmallArticle.css";

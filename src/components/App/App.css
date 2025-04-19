@@ -1,0 +1,51 @@
+
+.header{
+    padding-top: 38px;
+    padding-bottom: 150px;
+}
+
+
+
+.footer{
+    padding-top: 22px;
+    padding-bottom: 56px;
+    background-color: var(--color-primary);
+    min-width: var(--container-width);
+}
+.footer__columne{
+    display: flex;
+    justify-content: space-between;
+    /*Значение space-between:
+Элементы равномерно распределяются по главной оси.
+Первый элемент прижимается к началу контейнера.
+Последний элемент прижимается к концу контейнера.
+Пространство между элементами распределяется равномерно.*/
+    align-items: baseline;
+    /*Элементы выравниваются по их базовым линиям текста.
+    Базовая линия текста — это воображаемая линия, на которой "стоят"
+    буквы (например, буква x) в тексте.*/
+}
+.footer__text{
+    font-size: 24px;
+    line-height: 28px;
+    color: var(--color-white);
+}
+.footer__link{
+    color: var(--color-accent);
+    font-weight: 700;
+}
+.footer__link:hover{
+    opacity: 0.8;
+    /*Свойство opacity задаёт прозрачность элемента.
+    Значение 0.8 означает, что элемент становится на 20% прозрачнее
+    (где 1 — полностью непрозрачно, а 0 — полностью прозрачно).*/
+}
+.footer__copyright{
+    font-size: 24px;
+    line-height: 28px;
+    color: var(--color-grey);
+}
+
+.footer__navigation{
+    margin-bottom: 47px;
+}

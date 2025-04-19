@@ -1,0 +1,68 @@
+/*делаем лого во все 4 колонки и в классе navigation__log делаем внутрений отступ 32px*/
+.navigation__image{
+    width: 100%;
+}
+.navigation__list{
+    list-style: none; /*спользуется для удаления стандартных маркеров*/
+    display: flex;
+}
+.navigation__item{
+    margin-right: 60px;
+}
+.navigation__item:last-child{
+    margin-right: 0;
+}
+.navigation__link{
+    font-size: 24px;
+    font-weight: 900;
+    text-transform: uppercase;
+    cursor: pointer;/*cursor — это свойство, которое контролирует вид курсора
+    при взаимодействии с элементом
+    pointer — это значение свойства, которое изменяет курсор на руку,
+     как это бывает при наведении*/
+}
+
+/*HEADER*/
+.navigation--header .navigation__link{
+    color: var(--color-primary);
+}
+.navigation--header .navigation__link--active{
+    color: var(--color-accent);
+}
+.navigation--header .navigation__link:hover{
+    color: var(--color-accent);
+}
+.navigation--header .navigation__log{
+    grid-column: span 4; /* это значение, которое говорит элементу
+    занять 4 колонки, начиная с текущего положения в сетке.*/
+    padding-right: 32px;
+}
+.navigation--header .navigation__list{
+    grid-column: 5/-1; /*значит, что растягиваем грид с 5 по -1 колонку*/
+}
+/*.header__navigation .navigation__link{*/
+/*    color: var(--color-primary);*/
+/*}*/
+
+
+/*FOOTER*/
+.navigation--footer{
+    align-items: center;
+    /* для того, чтобы текст в футере-навигации был по центру относительно иконки( и в целом в центре) */
+}
+.navigation--footer .navigation__log{
+    padding-right: 56px;
+    grid-column: span 2;
+}
+.navigation--footer .navigation__list{
+    grid-column: 3/-1;
+}
+.navigation--footer .navigation__link{
+    color: var(--color-white);
+}
+.navigation--footer .navigation__link--active{
+    color: var(--color-accent);
+}
+.navigation--footer .navigation__link:hover{
+    color: var(--color-accent);
+}
